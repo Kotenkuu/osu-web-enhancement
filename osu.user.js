@@ -258,29 +258,12 @@ const inj_style =
 }
 .score-detail{
     display: inline-block;
+    margin-right: 10px;
 }
 .score-detail-data-text{
     margin-left: 5px;
-    margin-right: 10px;
     width: auto;
     display: inline-block;
-}
-@keyframes rainbow{
-    0%{
-        color: #be19ff;
-    }
-    25%{
-        color: #0075ff;
-    }
-    50%{
-        color: #4ddf86;
-    }
-    75%{
-        color: #e9ea00;
-    }
-    100%{
-        color: #ff7800;
-    }
 }
 .play-detail__accuracy-and-weighted-pp{
     display: flex;
@@ -289,11 +272,11 @@ const inj_style =
 .play-detail__before{
     flex-grow: 1;
 }
-.mania-max{
-    animation: 0.16s infinite alternate rainbow;
+.mania-max, .osu-300, .fruits-300, .taiko-300{
+    color: #99eeff
 }
-.mania-300{
-    color: #fbff00;
+.mania-300 {
+    color: #66ccff;
 }
 .osu-100, .fruits-100, .taiko-150{
     color: #67ff5b;
@@ -301,17 +284,11 @@ const inj_style =
 .mania-200{
     color: #6cd800;
 }
-.osu-300, .fruits-300, .taiko-300{
-    color: #7dfbff;
-}
 .mania-100{
-    color: #257aea;
+    color: #88b300;
 }
-.mania-50{
-    color: #d2d2d2;
-}
-.osu-50, .fruits-50-miss{
-    color: #ffbf00;
+.mania-50, .osu-50, .fruits-50-miss{
+    color: #ffcc22;
 }
 .mania-miss, .taiko-miss, .fruits-miss{
     color: #cc2626;
@@ -1283,33 +1260,21 @@ const ListItemWorker = (ele, data, isLazer) => {
             );
             const m_300 = HTML("span", {class: "score-detail score-detail-osu-300"},
                 HTML("span", {class: "osu-300"},
-                    HTML("300")
-                ),
-                HTML("span", {class: "score-detail-data-text"},
                     HTML(`${data.statistics.great + data.statistics.perfect}`)
                 )
             );
             const s100 = HTML("span", {class: "score-detail score-detail-osu-100"},
                 HTML("span", {class: "osu-100"},
-                    HTML("100")
-                ),
-                HTML("span", {class: "score-detail-data-text"},
                     HTML(`${data.statistics.ok + data.statistics.good}`)
                 )
             );
             const s50 = HTML("span", {class: "score-detail score-detail-osu-50"},
                 HTML("span", {class: "osu-50"},
-                    HTML("50")
-                ),
-                HTML("span", {class: "score-detail-data-text"},
                     HTML(`${data.statistics.meh}`)
                 )
             );
             const s0 = HTML("span", {class: "score-detail score-detail-osu-miss"},
                 HTML("span", {class: "osu-miss"},
-                    HTML("img", {src: svg_osu_miss, alt: "miss"})
-                ),
-                HTML("span", {class: "score-detail-data-text"},
                     HTML(`${data.statistics.miss}`)
                 )
             );
@@ -1330,17 +1295,14 @@ const ListItemWorker = (ele, data, isLazer) => {
                 ),
             );
             db.replaceChildren(
-                HTML("span", {class: "score-detail score-detail-taiko-300"},
-                        HTML("span", {class: "taiko-300"}, HTML("300")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.great ?? 0))
+                HTML("span", {class: "score-detail score-detail-taiko-300", title: i18n("GREAT")},
+                        HTML("span", {class: "taiko-300"}, HTML(data.statistics.great ?? 0))
                 ),
-                HTML("span", {class: "score-detail score-detail-taiko-150"},
-                        HTML("span", {class: "taiko-150"}, HTML("150")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.ok ?? 0))
+                HTML("span", {class: "score-detail score-detail-taiko-150", title: i18n("GOOD")},
+                        HTML("span", {class: "taiko-150"}, HTML(data.statistics.ok ?? 0))
                 ),
-                HTML("span", {class: "score-detail score-detail-fruits-combo"},
-                    HTML("span", {class: "taiko-miss"}, HTML("miss")),
-                    HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.miss ?? 0))
+                HTML("span", {class: "score-detail score-detail-fruits-combo", title: i18n("MISS")},
+                    HTML("span", {class: "taiko-miss"}, HTML(data.statistics.miss ?? 0))
                 ),
             );
             break;
@@ -1360,17 +1322,14 @@ const ListItemWorker = (ele, data, isLazer) => {
                     ),
                 );
                 db.replaceChildren(
-                    HTML("span", {class: "score-detail score-detail-fruits-300"},
-                        HTML("span", {class: "fruits-300"}, HTML("fruits")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(cur[0] + "/" + mx[0]))
+                    HTML("span", {class: "score-detail score-detail-fruits-300", title: i18n("FRUITS")},
+                        HTML("span", {class: "fruits-300"}, HTML(cur[0] + "/" + mx[0]))
                     ),
-                    HTML("span", {class: "score-detail score-detail-fruits-100"},
-                        HTML("span", {class: "fruits-100"}, HTML("ticks")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(cur[1] + "/" + mx[1]))
+                    HTML("span", {class: "score-detail score-detail-fruits-100", title: i18n("TICKS")},
+                        HTML("span", {class: "fruits-100"}, HTML(cur[1] + "/" + mx[1]))
                     ),
-                    HTML("span", {class: "score-detail score-detail-fruits-50-miss"},
-                        HTML("span", {class: "fruits-50-miss"}, HTML("drops")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(cur[2] + "/" + mx[2]))
+                    HTML("span", {class: "score-detail score-detail-fruits-50-miss", title: i18n("MISS")},
+                        HTML("span", {class: "fruits-50-miss"}, HTML(cur[2] + "/" + mx[2]))
                     )
                 );
             } else {
@@ -1383,21 +1342,17 @@ const ListItemWorker = (ele, data, isLazer) => {
                     ),
                 );
                 db.replaceChildren(
-                    HTML("span", {class: "score-detail score-detail-fruits-300"},
-                        HTML("span", {class: "fruits-300"}, HTML("FRUIT")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.great ?? 0))
+                    HTML("span", {class: "score-detail score-detail-fruits-300", title: i18n("FRUITS")},
+                        HTML("span", {class: "fruits-300"}, HTML(data.statistics.great ?? 0))
                     ),
-                    HTML("span", {class: "score-detail score-detail-fruits-100"},
-                        HTML("span", {class: "fruits-100"}, HTML("tick")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.large_tick_hit ?? 0))
+                    HTML("span", {class: "score-detail score-detail-fruits-100", title: i18n("TICKS")},
+                        HTML("span", {class: "fruits-100"}, HTML(data.statistics.large_tick_hit ?? 0))
                     ),
-                    HTML("span", {class: "score-detail score-detail-fruits-50-miss"},
-                        HTML("span", {class: "fruits-50-miss"}, HTML("miss")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.small_tick_miss ?? 0))
+                    HTML("span", {class: "score-detail score-detail-fruits-50-miss", title: i18n("DRP MISS")},
+                        HTML("span", {class: "fruits-50-miss"}, HTML(data.statistics.small_tick_miss ?? 0))
                     ),
-                    HTML("span", {class: "score-detail score-detail-fruits-miss"},
-                        HTML("span", {class: "fruits-miss"}, HTML("MISS")),
-                        HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.miss ?? 0))
+                    HTML("span", {class: "score-detail score-detail-fruits-miss", title: i18n("MISS")},
+                        HTML("span", {class: "fruits-miss"}, HTML(data.statistics.miss ?? 0))
                     )
                 );
             }
@@ -1411,7 +1366,6 @@ const ListItemWorker = (ele, data, isLazer) => {
             const isMCombo = isLazer ? data.max_combo >= MCombo : data.legacy_perfect;
             du.replaceChildren(
                 HTML("span", {class: "play-detail__before"}),
-                HTML("span", {class: "play-detail__Accuracy2", title: i18n(`pp Accuracy`)}, HTML(`${(ppAcc * 100).toFixed(2)}%`)),
                 isLazer ? 
                 HTML("span", {class: "play-detail__Accuracy", title: i18n(`Lazer Mode Accuracy`)}, HTML(`${(((data.rank === "D" && data.accuracy === 0) ? v2Acc : data.accuracy) * 100).toFixed(2)}%`)):
                 HTML("span", {class: "play-detail__Accuracy", title: i18n(`Stable Mode Accuracy`)}, HTML(`${(((data.rank === "D" && data.accuracy === 0) ? v1Acc : v1Acc) * 100).toFixed(2)}%`)),
@@ -1434,21 +1388,17 @@ const ListItemWorker = (ele, data, isLazer) => {
                     HTML("span", {class: "mania-300"}, HTML("300")),
                     HTML("span", {class: "score-detail-data-text"}, HTML(`${M_300 >= 1000 ? Math.round(M_300) : (M_300 < 1 ? M_300.toFixed(2): M_300.toPrecision(3))}`))
                 ),
-                HTML("span", {class: "score-detail score-detail-mania-max-200"},
-                    HTML("span", {class: "mania-200"}, HTML("200")),
-                    HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.good))
+                HTML("span", {class: "score-detail score-detail-mania-max-200", title: i18n("200")},
+                    HTML("span", {class: "mania-200"}, HTML(data.statistics.good))
                 ),
-                HTML("span", {class: "score-detail score-detail-mania-max-100"},
-                    HTML("span", {class: "mania-100"}, HTML("100")),
-                    HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.ok))
+                HTML("span", {class: "score-detail score-detail-mania-max-100", title: i18n("100")},
+                    HTML("span", {class: "mania-100"}, HTML(data.statistics.ok))
                 ),
-                HTML("span", {class: "score-detail score-detail-mania-max-50"},
-                    HTML("span", {class: "mania-50"}, HTML("50")),
-                    HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.meh))
+                HTML("span", {class: "score-detail score-detail-mania-max-50", title: i18n("50")},
+                    HTML("span", {class: "mania-50"}, HTML(data.statistics.meh))
                 ),
-                HTML("span", {class: "score-detail score-detail-mania-max-0"},
-                    HTML("span", {class: "mania-miss"}, HTML("miss")),
-                    HTML("span", {class: "score-detail-data-text"}, HTML(data.statistics.miss))
+                HTML("span", {class: "score-detail score-detail-mania-max-0", title: i18n("MISS")},
+                    HTML("span", {class: "mania-miss"}, HTML(data.statistics.miss))
                 )
             );
             break;
@@ -1607,7 +1557,7 @@ const AddPopupButton = () => {
 };
 const OnMutation = (mulist) => {
     mut.disconnect();
-    AddMenu();
+    // AddMenu();
     FilterBeatmapSet();
     ImproveBeatmapPlaycountItems();
     ImproveProfile(mulist);
