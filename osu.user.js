@@ -1502,7 +1502,7 @@ const ImproveProfile = (mulist) => {
     const wloc = window.location.toString();
     if(!profUrlReg.test(wloc)) return;
     //SortGroup.Show();
-    const initDataEle = document.querySelector(".js-react--profile-page.osu-layout.osu-layout--full");
+    const initDataEle = document.querySelector(".js-react--profile-page.u-contents");
     if(!initDataEle) return;
     const initData = JSON.parse(initDataEle.dataset.initialData);
     const userId = initData.user.id, modestr = initData.current_mode;
